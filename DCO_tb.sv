@@ -15,9 +15,10 @@ module DCO_tb;
     begin
         reset_i = 0;
         freqCode_i = 0;
-        #1us;
+        #1ps;
         reset_i = 1;
-        #1ms;
+        freqCode_i = 8'hFF;
+        #2s;
         $stop;
     end
 

@@ -1,0 +1,1 @@
+modelsim -do DCO_tb_script.tcl

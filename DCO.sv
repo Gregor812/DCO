@@ -2,7 +2,7 @@ module DCO // black-box model
 (
     input wire reset_i,
     input wire [7:0] freqCode_i,
-    output wire signal_o;
+    output wire signal_o
 );
 
     reg internalClock;
@@ -11,16 +11,17 @@ module DCO // black-box model
     
     assign signal_o = signal;
     
+    localparam centralValue = 8'h7F;
+    localparam ticksTo2048MHz = 32'd122070;
+    
     initial
     begin
         internalClock = 0;
-        counter = 0;
-        signal = 0;
     end
     
     always
     begin
-        #0.00048828125ps;
+        #1fs;
         internalClock <= ~internalClock;
     end
     
@@ -31,7 +32,7 @@ module DCO // black-box model
             counter <= '0;
             signal <= '0;
         end
-        else if (counter == 32'd999999)
+        else if (counter == ticksTo2048MHz + (centralValue - freqCode_i))
         begin
             counter <= '0;
             signal <= ~signal;
